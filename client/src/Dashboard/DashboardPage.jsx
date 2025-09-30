@@ -65,32 +65,33 @@ const TopicListPage = ({ subject, onGoBack }) => {
     }));
 
     return (
-        <div className="p-8 bg-white rounded-lg shadow-xl w-full max-w-lg border border-gray-300">
+        <div className="p-6 sm:p-8 bg-white rounded-2xl shadow-2xl w-full max-w-sm md:max-w-lg border border-gray-200">
             {/* Header and Back Button */}
             <div className="flex justify-between items-center mb-6 border-b pb-4">
-                <h2 className="text-2xl font-extrabold text-gray-800 uppercase">{subject} Topics</h2>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-gray-800 uppercase truncate pr-4">{subject} Topics</h2>
                 <button
                     onClick={onGoBack}
-                    className="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-xl hover:bg-gray-300 transition duration-300"
+                    className="flex-shrink-0 bg-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-xl hover:bg-gray-300 transition duration-300 text-sm sm:text-base"
                 >
-                    Go Back
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                    Back
                 </button>
             </div>
 
             {/* Topics List Container */}
-            <div className="space-y-4">
+            <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                 {topics.map((topic, index) => (
                     <div
                         key={index}
-                        className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-sm"
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 transition duration-200"
                     >
-                        <span className="text-lg font-medium text-gray-700">{topic.name}</span>
-                        <div className="flex items-center space-x-4">
-                             <span className="text-sm text-gray-500 font-semibold">{topic.questionCount} Questions</span>
+                        <span className="text-base sm:text-lg font-medium text-gray-700 mb-2 sm:mb-0">{topic.name}</span>
+                        <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto justify-between">
+                            <span className="text-xs sm:text-sm text-gray-500 font-semibold flex-shrink-0">{topic.questionCount} Qs</span>
                              <button
-                                className="text-white bg-[#004F43] text-sm font-medium py-1 px-4 rounded-lg hover:bg-[#003B33] transition duration-300"
+                                className="text-white bg-[#004F43] text-sm font-medium py-2 px-4 rounded-lg hover:bg-[#003B33] transition duration-300 shadow-md flex-shrink-0"
                             >
-                                Start
+                                Start Test
                             </button>
                         </div>
                     </div>
@@ -105,11 +106,11 @@ const ExamCard = ({ exam, onStartExam }) => {
     return (
         <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-200 w-full flex flex-col justify-between h-full transform hover:scale-[1.02] transition-transform duration-300">
             <div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{exam.subject}</h3>
-                <p className="text-gray-500 text-sm mb-4 line-clamp-3">{exam.description}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{exam.subject}</h3>
+                <p className="text-gray-500 text-sm mb-4 line-clamp-3 h-[60px]">{exam.description}</p>
                 
                 {/* Statistics line */}
-                <div className="flex items-center text-sm text-gray-600 mb-4">
+                <div className="flex items-center text-sm text-gray-600 mb-4 pt-2 border-t border-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#004F43]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
                         <circle cx="12" cy="12" r="3"/>
@@ -123,7 +124,7 @@ const ExamCard = ({ exam, onStartExam }) => {
             <div className="mt-4">
                 <button 
                     onClick={() => onStartExam(exam.subject)} 
-                    className="w-full bg-[#004F43] text-white font-medium py-3 rounded-xl hover:bg-[#003B33] transition duration-300 shadow-md shadow-[#004F43]/50"
+                    className="w-full bg-[#004F43] text-white font-semibold py-3 rounded-xl hover:bg-[#003B33] transition duration-300 shadow-lg shadow-[#004F43]/40 active:shadow-none"
                 >
                     Start Exam
                 </button>
@@ -152,17 +153,17 @@ const DashboardPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8 font-sans flex justify-center items-start">
-            <div className="container mx-auto max-w-7xl flex justify-center">
+        <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans flex justify-center items-start pt-10">
+            <div className="container mx-auto max-w-7xl flex justify-center w-full">
 
                 {/* --- Conditional Rendering for Grid View --- */}
                 {view === 'grid' && (
                     <div className="w-full">
-                        <h2 className="text-3xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#004F43] inline-block pb-1">
-                            Available Exams🎓
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#004F43] inline-block pb-1">
+                            Available Exams 🎓
                         </h2>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {EXAMS_DATA.map((exam) => (
                                 <ExamCard 
                                     key={exam.id} 
