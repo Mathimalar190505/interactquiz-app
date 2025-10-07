@@ -25,7 +25,7 @@ const ResetPassword = ({ onClose }) => {
   }, [isSubmitted, onClose]);
 
   const handleReset = async () => {
-    setError("");
+    
 
     if (!newPassword || !confirmPassword) {
       setError("All fields are required.");
@@ -43,10 +43,14 @@ const ResetPassword = ({ onClose }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/ResetPassword", {
+      const res = await axios.post("http://localhost:5000/ResetPassword", {
         username,
         newPassword,
       });
+        console.log(res.data); // should log { message: "Password reset successfully" }
+
+    localStorage.removeItem("usernameForReset");
+    window.location.href = "/dashboard"; 
       setIsSubmitted(true);
     } catch (err) {
       setError(err.response?.data?.message || "Error resetting password");
