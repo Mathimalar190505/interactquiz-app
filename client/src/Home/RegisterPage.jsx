@@ -16,7 +16,7 @@ const EyeSlashIcon = ({ size = 20, className = "text-gray-600 hover:text-gray-80
 
 
 // Register Page Component
-const RegisterPage = () => {
+const RegisterPage = ({onRegisterComplete}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -24,6 +24,39 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   // Removed the 'error' state since we are using inline feedback and console logging success/failure
+const getRegister = async () => {
+  console.log("Register button clicked");
+
+  try {
+    const res = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        username: fullName,
+        password,
+      }),
+    });
+
+    const data = await res.json(); // ✅ parse JSON once
+
+    if (data.message === "User registered successfully") {
+   
+
+      // ✅ Switch back to Login tab
+      onRegisterComplete();
+    } else {
+      onRegisterComplete();
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+};
+
+
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -38,11 +71,15 @@ const RegisterPage = () => {
     if (areRequiredFieldsFilled && isMatch && isMinLength) {
         // --- Success Logic Placeholder ---
         console.log("Registration successful! Data:", { fullName, mobileNumber, password });
+        getRegister();
     } else {
         // Should only be hit if button disable logic is circumvented, but good practice.
         console.log("Registration blocked: Validation failed.");
     }
   };
+
+
+ 
 
   // Real-time validation calculation for display and button disable logic
   const passwordsMatch = password === confirmPassword;
@@ -67,7 +104,7 @@ const RegisterPage = () => {
             {/* Full Name */}
             <input
                 type="text"
-                placeholder="Full Name"
+                placeholder="Username"
                 value={fullName}
                 onChange={(e) => { setFullName(e.target.value); }}
                 className={`block w-full p-4 rounded-lg bg-white border-2 
@@ -143,7 +180,7 @@ const RegisterPage = () => {
 
             {/* REAL-TIME MATCH FEEDBACK */}
             {showMatchFeedback && (
-                <p className={`text-sm mt-1 font-medium -mt-2 ${passwordsMatch ? 'text-green-600' : 'text-red-600'}`}>
+                <p className={`text-sm mt-1 font-medium ${passwordsMatch ? 'text-green-600' : 'text-red-600'}`}>
                     {passwordsMatch 
                         ? '✅ Passwords match.' 
                         : '❌ Passwords do not match.'}
@@ -163,6 +200,7 @@ const RegisterPage = () => {
                 style={{ backgroundColor: isRegisterDisabled ? 'rgb(156 163 175)' : PRIMARY_COLOR, boxShadow: `0 4px 15px rgba(0, 79, 67, 0.3)` }}
             >
                 Register
+    
             </button>
         </form>
     </div>

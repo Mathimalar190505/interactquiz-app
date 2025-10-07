@@ -1,9 +1,17 @@
-import './App.css';
+// App.js
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Dashboard from "./Dashboard/DashboardPage";
+import HomePage from "./Home/HomePage";
+
 function App() {
   return (
-    <div className="App">
-      QUIZ APP
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
