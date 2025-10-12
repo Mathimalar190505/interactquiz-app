@@ -15,7 +15,7 @@ const subjects = [
   
   // New Four Topics
   { name: "SQL", description: "Database querying, joins, and optimization", icon: "💾" },
-  { name: "Data Structures", description: "Arrays, lists, trees, and algorithms", icon: "🧱" },
+  { name: "Data Structure", description: "Arrays, lists, trees, and algorithms", icon: "🧱" },
   { name: "Cloud Computing", description: "AWS, Azure, and fundamental cloud services", icon: "☁️" },
   { name: "Operating Systems", description: "Process management, memory, and concurrency", icon: "💻" },
 ];

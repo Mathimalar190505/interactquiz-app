@@ -28,14 +28,12 @@ const topicMap = {
     { title: "List Comprehension", questions: 20 },
   ],
   Java: [
-    { title: "Classes and Objects", questions: 45 },
-    { title: "Inheritance", questions: 30 },
-    { title: "Polymorphism", questions: 25 },
-    { title: "Interfaces", questions: 20 },
-    { title: "Exception Handling", questions: 30 },
-    { title: "Collections Framework", questions: 40 },
-    { title: "Multithreading", questions: 25 },
-    { title: "File IO", questions: 18 },
+    { title: "Basics", questions: 10 },
+    { title: "OOP", questions: 10 },
+    {title:"Collections",questions:10},
+    { title: "Multithreading", questions: 10 },
+    
+    
   ],
   Networking: [
     { title: "IP Addressing", questions: 30 },
@@ -47,14 +45,32 @@ const topicMap = {
     { title: "Network Security", questions: 35 },
     { title: "DNS and DHCP", questions: 15 },
   ],
+  OperatingSystems: [
+    { title: "Basic And Structure", questions: 10 },
+    { title: "File And Device Management", questions: 10 },
+    { title: "Memory Management", questions: 10 },
+    { title: "Process Management", questions: 10 },
+  ],
+  SQL:[
+    { title: "Basics", questions: 10 },
+    { title: "Joins", questions: 15 },
+    { title: "Aggregate Functions", questions: 10 },
+    { title: "Advanced Queries & Views", questions: 10 },
+  ],
+  DataStructures:[
+    { title: "Arrays And Lists", questions: 10 },
+    { title: "Stacks And Queues", questions: 10 },
+    { title: "Trees", questions: 10 },
+    { title: "Graph And Hashing", questions: 10 },
+  ]
 };
 
 const TopicListPage = () => {
   const { subject } = useParams();
   const navigate = useNavigate();
-  
+
   // Update topicMap structure to include question counts for better display
-  const topics = topicMap[subject] || []; 
+  const topics = topicMap[subject] || [];
 
   const handleStartTest = (topicTitle) => {
     // Note: URI encoding is good practice for URL segments containing spaces
@@ -63,9 +79,9 @@ const TopicListPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
-      
+
       {/* Subject Header */}
-      <h1 
+      <h1
         className="text-4xl sm:text-5xl font-extrabold mb-10 pb-2 border-b-4 tracking-wide"
         style={{ color: PHYTALO_GREEN, borderColor: PHYTALO_GREEN }}
       >
@@ -101,7 +117,7 @@ const TopicListPage = () => {
                 <span style={{ color: PHYTALO_GREEN }}>{topic.questions}</span> Questions
               </p>
             </div>
-            
+
             {/* Start Button */}
             <button
               onClick={() => handleStartTest(topic.title)}
@@ -118,8 +134,8 @@ const TopicListPage = () => {
                 focus:ring-opacity-50
                 transition duration-150
               "
-              style={{ 
-                  backgroundColor: PHYTALO_GREEN,
+              style={{
+                backgroundColor: PHYTALO_GREEN,
               }}
               // Manually handle hover for custom arbitrary colors
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = PHYTALO_GREEN_HOVER}
