@@ -42,10 +42,13 @@ const topicMap = {
     { title: "Subnetting", questions: 45 },
     { title: "OSI Model", questions: 25 },
     { title: "TCP/IP Protocols", questions: 30 },
-    { title: "Routing Basics", questions: 22 },
-    { title: "Switching", questions: 20 },
-    { title: "Network Security", questions: 35 },
-    { title: "DNS and DHCP", questions: 15 },
+    
+  ],
+  CloudComputing: [
+    { title: "Cloud Service Models", questions: 28 },
+    { title: "Cloud Deployment Models", questions: 25 },
+    { title: "Cloud Security and Privacy", questions: 30 },
+    { title: "Virtualization and Resource Management", questions: 32 },
   ],
 };
 
@@ -53,11 +56,10 @@ const TopicListPage = () => {
   const { subject } = useParams();
   const navigate = useNavigate();
   
-  // Update topicMap structure to include question counts for better display
+  // Select topics dynamically based on the subject
   const topics = topicMap[subject] || []; 
 
   const handleStartTest = (topicTitle) => {
-    // Note: URI encoding is good practice for URL segments containing spaces
     navigate(`/exam/${subject}/${encodeURIComponent(topicTitle)}`);
   };
 
@@ -92,17 +94,14 @@ const TopicListPage = () => {
             "
           >
             <div className="text-left mb-4 sm:mb-0 sm:mr-4 flex-grow">
-              {/* Topic Title */}
               <h3 className="text-xl font-bold text-gray-800 mb-1">
                 {topic.title}
               </h3>
-              {/* Question Count */}
               <p className="text-sm text-gray-500 font-medium">
                 <span style={{ color: PHYTALO_GREEN }}>{topic.questions}</span> Questions
               </p>
             </div>
             
-            {/* Start Button */}
             <button
               onClick={() => handleStartTest(topic.title)}
               className="
@@ -118,10 +117,7 @@ const TopicListPage = () => {
                 focus:ring-opacity-50
                 transition duration-150
               "
-              style={{ 
-                  backgroundColor: PHYTALO_GREEN,
-              }}
-              // Manually handle hover for custom arbitrary colors
+              style={{ backgroundColor: PHYTALO_GREEN }}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = PHYTALO_GREEN_HOVER}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = PHYTALO_GREEN}
             >
@@ -131,7 +127,6 @@ const TopicListPage = () => {
         ))}
       </div>
 
-      {/* Back Button */}
       <button
         onClick={() => navigate("/dashboard")}
         className="
